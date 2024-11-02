@@ -69,8 +69,8 @@ void MCCP1_COMPARE_Initialize (void)
 {
     // ON enabled; MOD Dual Edge Compare, Buffered(PWM); ALTSYNC disabled; SIDL disabled; OPS Each Time Base Period Match; CCPSLP disabled; TMRSYNC disabled; RTRGEN disabled; CCSEL disabled; ONESHOT disabled; TRIGEN disabled; T32 16 Bit; SYNC None; OPSSRC Special Event Trigger; TMRPS 1:1; CLKSEL SYSCLK; 
     CCP1CON1 = (0x80008005 & 0xFFFF7FFF); //Disabling CCPON bit
-    //OCCEN disabled; OCDEN disabled; ASDGM disabled; OCEEN disabled; ICGSM Level-Sensitive mode; OCFEN disabled; ICS ICM1; SSDG disabled; AUXOUT OC Signal; ASDG 0; OCAEN disabled; OCBEN enabled; OENSYNC enabled; PWMRSEN disabled; 
-    CCP1CON2 = 0x82180000;
+    //OCCEN disabled; OCDEN disabled; ASDGM disabled; OCEEN disabled; ICGSM Level-Sensitive mode; OCFEN disabled; ICS ICM1; SSDG disabled; AUXOUT OC Signal; ASDG 0; OCAEN enabled; OCBEN disabled; OENSYNC enabled; PWMRSEN disabled; 
+    CCP1CON2 = 0x81180000;
     //DT 0; OETRIG disabled; OSCNT None; POLACE disabled; POLBDF disabled; PSSBDF Tri-state; OUTM Steerable single output; PSSACE Tri-state; 
     CCP1CON3 = 0x00;
     //SCEVT disabled; TRSET disabled; ICOV disabled; ASEVT disabled; ICGARM disabled; RBWIP disabled; TRCLR disabled; RAWIP disabled; TMRHWIP disabled; TMRLWIP disabled; PRLWIP disabled; 

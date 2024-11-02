@@ -69,10 +69,10 @@ void PIN_MANAGER_Initialize (void)
     /****************************************************************************
      * Setting the GPIO Direction SFR(s)
      ***************************************************************************/
-    TRISA = 0xFAFF;
-    TRISB = 0x0ED4;
-    TRISC = 0x6DBF;
-    TRISD = 0x001C;
+    TRISA = 0xEAFF;
+    TRISB = 0x0EDF;
+    TRISC = 0x7DAF;
+    TRISD = 0x001F;
 
     /****************************************************************************
      * Setting the Weak Pull Up and Weak Pull Down SFR(s)
@@ -97,20 +97,9 @@ void PIN_MANAGER_Initialize (void)
     /****************************************************************************
      * Setting the Analog/Digital Configuration SFR(s)
      ***************************************************************************/
-    ANSELA = 0x080C;
-    ANSELB = 0x0014;
-    ANSELC = 0x0000;
+    ANSELA = 0x284C;
+    ANSELB = 0x401F;
+    ANSELC = 0x0123;
 
-    /****************************************************************************
-     * Set the PPS
-     ***************************************************************************/
-    SYSTEM_RegUnlock(); // unlock PPS
-    RPCONbits.IOLOCK = 0;
-
-    RPOR4bits.RP17R = 0x000B;    //RB15->SCCP4:OCM4
-    RPOR2bits.RP9R = 0x000C;    //RB3->SCCP5:OCM5
-
-    RPCONbits.IOLOCK = 1; // lock   PPS
-    SYSTEM_RegLock(); 
 }
 

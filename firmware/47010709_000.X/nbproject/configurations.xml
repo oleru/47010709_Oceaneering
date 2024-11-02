@@ -19,10 +19,8 @@
           <itemPath>mcc_generated_files/usb/usb_device_local.h</itemPath>
         </logicalFolder>
         <itemPath>mcc_generated_files/interrupt_manager.h</itemPath>
-        <itemPath>mcc_generated_files/uart1.h</itemPath>
         <itemPath>mcc_generated_files/mcc.h</itemPath>
         <itemPath>mcc_generated_files/watchdog.h</itemPath>
-        <itemPath>mcc_generated_files/sccp5_compare.h</itemPath>
         <itemPath>mcc_generated_files/mccp3_compare.h</itemPath>
         <itemPath>mcc_generated_files/clock.h</itemPath>
         <itemPath>mcc_generated_files/adc_module_features.h</itemPath>
@@ -30,9 +28,7 @@
         <itemPath>mcc_generated_files/adc1.h</itemPath>
         <itemPath>mcc_generated_files/pin_manager.h</itemPath>
         <itemPath>mcc_generated_files/exceptions.h</itemPath>
-        <itemPath>mcc_generated_files/sccp4_compare.h</itemPath>
         <itemPath>mcc_generated_files/system.h</itemPath>
-        <itemPath>mcc_generated_files/mccp2_compare.h</itemPath>
         <itemPath>mcc_generated_files/coretimer.h</itemPath>
         <itemPath>mcc_generated_files/tmr2.h</itemPath>
       </logicalFolder>
@@ -61,18 +57,14 @@
           <itemPath>mcc_generated_files/usb/usb_descriptors.c</itemPath>
           <itemPath>mcc_generated_files/usb/example_mcc_usb_cdc.c</itemPath>
         </logicalFolder>
-        <itemPath>mcc_generated_files/uart1.c</itemPath>
         <itemPath>mcc_generated_files/clock.c</itemPath>
         <itemPath>mcc_generated_files/interrupt_manager.c</itemPath>
-        <itemPath>mcc_generated_files/sccp4_compare.c</itemPath>
         <itemPath>mcc_generated_files/mcc.c</itemPath>
         <itemPath>mcc_generated_files/mccp3_compare.c</itemPath>
         <itemPath>mcc_generated_files/pin_manager.c</itemPath>
-        <itemPath>mcc_generated_files/sccp5_compare.c</itemPath>
         <itemPath>mcc_generated_files/mccp1_compare.c</itemPath>
         <itemPath>mcc_generated_files/adc1.c</itemPath>
         <itemPath>mcc_generated_files/exceptions.c</itemPath>
-        <itemPath>mcc_generated_files/mccp2_compare.c</itemPath>
         <itemPath>mcc_generated_files/system.c</itemPath>
         <itemPath>mcc_generated_files/coretimer.c</itemPath>
         <itemPath>mcc_generated_files/tmr2.c</itemPath>

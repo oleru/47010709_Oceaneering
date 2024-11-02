@@ -75,7 +75,7 @@
  Remarks:
    None
  */
-#define ADC1_SCAN_MODE_SELECTED true
+#define ADC1_SCAN_MODE_SELECTED false
 
 /** ADC1 Channel Definition
  
@@ -90,11 +90,15 @@
  */
 typedef enum 
 {
-    MD_FOCUS_FB_AN4,//Channel Name:AN4   Assigned to:Shared Channel
-    MD_VERT_FB_AN5,//Channel Name:AN5   Assigned to:Shared Channel
-    MD_HORIZ_FB_AN6,//Channel Name:AN6   Assigned to:Shared Channel
-    POWER_IN_V_AN7,//Channel Name:AN7   Assigned to:Shared Channel
-    FOCUS_POS_AN18,//Channel Name:AN18   Assigned to:Shared Channel
+    PRESSURE_1_AN,//Channel Name:AN2   Assigned to:Shared Channel
+    PRESSURE_2_AN,//Channel Name:AN3   Assigned to:Shared Channel
+    PRESSURE_3_AN,//Channel Name:AN4   Assigned to:Shared Channel
+    WINCH_3_AN,//Channel Name:AN5   Assigned to:Shared Channel
+    WINCH_4_AN,//Channel Name:AN6   Assigned to:Shared Channel
+    LIGHT_SENSE,//Channel Name:AN7   Assigned to:Shared Channel
+    PRESSURE_4_AN,//Channel Name:AN11   Assigned to:Shared Channel
+    WINCH_1_AN,//Channel Name:AN12   Assigned to:Shared Channel
+    WINCH_2_AN,//Channel Name:AN13   Assigned to:Shared Channel
     CHANNEL_VDD_core,//Channel Name:VDD core   Assigned to:Shared Channel
     CHANNEL_VBG,//Channel Name:VBG   Assigned to:Shared Channel
     CHANNEL_AVSS,//Channel Name:AVSS   Assigned to:Shared Channel
@@ -340,8 +344,50 @@ inline static void ADC1_SoftwareTriggerDisable(void)
 */
 inline static void ADC1_ChannelSelect( ADC1_CHANNEL channel )
 {
-    /*This routine does not have any implementation since all the selected channels for this 
-    module have been put for scan. */
+    switch(channel)
+    {
+        case PRESSURE_1_AN:
+                AD1CHSbits.CH0SA= 0x2;
+                break;
+        case PRESSURE_2_AN:
+                AD1CHSbits.CH0SA= 0x3;
+                break;
+        case PRESSURE_3_AN:
+                AD1CHSbits.CH0SA= 0x4;
+                break;
+        case WINCH_3_AN:
+                AD1CHSbits.CH0SA= 0x5;
+                break;
+        case WINCH_4_AN:
+                AD1CHSbits.CH0SA= 0x6;
+                break;
+        case LIGHT_SENSE:
+                AD1CHSbits.CH0SA= 0x7;
+                break;
+        case PRESSURE_4_AN:
+                AD1CHSbits.CH0SA= 0xB;
+                break;
+        case WINCH_1_AN:
+                AD1CHSbits.CH0SA= 0xC;
+                break;
+        case WINCH_2_AN:
+                AD1CHSbits.CH0SA= 0xD;
+                break;
+        case CHANNEL_VDD_core:
+                AD1CHSbits.CH0SA= 0x1B;
+                break;
+        case CHANNEL_VBG:
+                AD1CHSbits.CH0SA= 0x1C;
+                break;
+        case CHANNEL_AVSS:
+                AD1CHSbits.CH0SA= 0x1D;
+                break;
+        case CHANNEL_AVDD:
+                AD1CHSbits.CH0SA= 0x1E;
+                break;
+        default:
+                break;
+    }
 }
 
 /**
@@ -385,38 +431,7 @@ inline static uint16_t ADC1_ConversionResultGet( ADC1_CHANNEL channel )
 {
     uint16_t result;
 
-    switch(channel)
-    {
-        case MD_FOCUS_FB_AN4:
-                result = ADC1BUF0;
-                break;
-        case MD_VERT_FB_AN5:
-                result = ADC1BUF1;
-                break;
-        case MD_HORIZ_FB_AN6:
-                result = ADC1BUF2;
-                break;
-        case POWER_IN_V_AN7:
-                result = ADC1BUF3;
-                break;
-        case FOCUS_POS_AN18:
-                result = ADC1BUF4;
-                break;
-        case CHANNEL_VDD_core:
-                result = ADC1BUF5;
-                break;
-        case CHANNEL_VBG:
-                result = ADC1BUF6;
-                break;
-        case CHANNEL_AVSS:
-                result = ADC1BUF7;
-                break;
-        case CHANNEL_AVDD:
-                result = ADC1BUF8;
-                break;
-        default:
-                break;
-    }
+    result = ADC1BUF0;
 
     return result;
 }
