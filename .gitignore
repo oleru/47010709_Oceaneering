@@ -8,6 +8,7 @@
 /MYPROJECT.X/nbproject/Package-*
 /MYPROJECT.X/nbproject/private/
 .generated_files/
+old/
 
 # Prerequisites
 *.d
