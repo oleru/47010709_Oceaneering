@@ -76,8 +76,8 @@
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
       <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.mcu16.Mcu16PeripheralLibrary" version="1.171.2"/>
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.USBDEVICELite.USBDEVICELite" version="1.27.0"/>
       <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.boardsupportlibrary.BoardSuppportLibrary" version="1.12.0"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.USBDEVICELite.USBDEVICELite" version="1.27.0"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
       <entry>
@@ -3562,7 +3562,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="MCCP1" name="prlkey"/>
-         <value>0</value>
+         <value>1023</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="MCCP1" name="sccpFreq"/>
@@ -4330,7 +4330,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="MCCP1" registerAlias="CCPPR"/>
-         <value>65535</value>
+         <value>1023</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="MCCP1" registerAlias="CCPRA"/>
@@ -4534,7 +4534,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="MCCP1" registerAlias="CCPPR" settingAlias="PRL"/>
-         <value>65535</value>
+         <value>1023</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="MCCP1" registerAlias="CCPRA" settingAlias="CMPA"/>
@@ -4670,7 +4670,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="MCCP3" name="prlkey"/>
-         <value>0</value>
+         <value>1023</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="MCCP3" name="sccpFreq"/>
@@ -5438,7 +5438,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="MCCP3" registerAlias="CCPPR"/>
-         <value>65535</value>
+         <value>1023</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="MCCP3" registerAlias="CCPRA"/>
@@ -5642,7 +5642,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="MCCP3" registerAlias="CCPPR" settingAlias="PRL"/>
-         <value>65535</value>
+         <value>1023</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="MCCP3" registerAlias="CCPRA" settingAlias="CMPA"/>
@@ -5993,23 +5993,11 @@
          <value/>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM1R%aux4"/>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM1R%aux0"/>
          <value>%DESELECT%</value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM2R%aux3"/>
-         <value>%DESELECT%</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM3R%aux0"/>
-         <value>%DESELECT%</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM4R%aux2"/>
-         <value>%DESELECT%</value>
-      </entry>
-      <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM5R%aux1"/>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM3R%aux1"/>
          <value>%DESELECT%</value>
       </entry>
       <entry>
@@ -6174,7 +6162,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="RC13"/>
-         <value>input</value>
+         <value>output</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="RC14"/>
@@ -11482,7 +11470,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="Pin Module" registerAlias="TRISC"/>
-         <value>32175</value>
+         <value>23983</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="Pin Module" registerAlias="TRISD"/>
@@ -13654,7 +13642,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="TRISC" settingAlias="TRISC13"/>
-         <value>input</value>
+         <value>output</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="Pin Module" registerAlias="TRISC" settingAlias="TRISC14"/>
@@ -16788,11 +16776,11 @@
       </entry>
       <entry>
          <file>mcc_generated_files\mcc.h</file>
-         <hash>9c5ea4e269642e6e5ea7d4c9a67dc6575e278503e6e60c0b124c48ed1efd690b</hash>
+         <hash>010784cdfb32d32f01c7ded14c5743d7cd3435ee5f87678dc2e49d083fce36bb</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\mccp1_compare.c</file>
-         <hash>8a1a2ef86bb4ca2a7c33a032870ea8c1e55dd405ccfa68844f5df59cab3c6445</hash>
+         <hash>30dc2950824dce9da800723ab0d4e63e00340c48154f4e2a7b9e0b206db5b877</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\mccp1_compare.h</file>
@@ -16800,7 +16788,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\mccp3_compare.c</file>
-         <hash>a12066c05e21a83ab315eb8bc24e6f5963b6f562cc81915bd4bfede92de91a33</hash>
+         <hash>999c310a412ccb4e9ee63c27d33b4cc1e5f1c7c6899cf48235bbeb01ea478c80</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\mccp3_compare.h</file>
@@ -16808,7 +16796,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\pin_manager.c</file>
-         <hash>98489232614046b68938af9400d1d5d1b7d1c0dc3846b2feaedab1b2c634cbac</hash>
+         <hash>0b4f5704da2a3dfac2596cdb2970634fdb3b7ea904421fdddfb00f26ea000628</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\pin_manager.h</file>
@@ -16816,7 +16804,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\system.c</file>
-         <hash>89b225712041e5570acf623aa47f41b7617d1c273fab2c57b7109a519f67d847</hash>
+         <hash>e45e2c768098fdbe8b1728a152fba5cec7c4591b7aa8bff9bf01f68fa97d65f6</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system.h</file>

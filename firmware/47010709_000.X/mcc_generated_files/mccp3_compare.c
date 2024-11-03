@@ -77,8 +77,8 @@ void MCCP3_COMPARE_Initialize (void)
     CCP3STAT = 0x00;
     //TMRL 0; TMRH 0; 
     CCP3TMR = 0x00;
-    //PRH 0; PRL 65535; 
-    CCP3PR = 0xFFFF;
+    //PRH 0; PRL 1023; 
+    CCP3PR = 0x3FF;
     //CMPA 0; 
     CCP3RA = 0x00;
     //CMPB 0; 

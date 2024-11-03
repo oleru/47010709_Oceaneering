@@ -2,7 +2,7 @@
 
 manifest_file_version: 1.0.0
 project: 47010709_Oceaneering
-creation_date: 2024-11-02T14:51:00.795+01:00[Europe/Berlin]
+creation_date: 2024-11-03T08:46:29.875+01:00[Europe/Berlin]
 operating_system: Windows 10
 mcc_mode: IDE
 mcc_mode_version: v6.20
@@ -19,6 +19,6 @@ device_library: {library_class: com.microchip.mcc.mcu16.Mcu16PeripheralLibrary, 
 packs: {name: PIC32MM-GPM-0XX_DFP, version: 1.4.156}
 modules:
 - {name: com.microchip.mcc.mcu16.Mcu16PeripheralLibrary, type: CLASSIC, version: 1.171.2}
-- {name: com.microchip.mcc.USBDEVICELite.USBDEVICELite, type: CLASSIC, version: 1.27.0}
 - {name: com.microchip.mcc.boardsupportlibrary.BoardSuppportLibrary, type: CLASSIC,
   version: 1.12.0}
+- {name: com.microchip.mcc.USBDEVICELite.USBDEVICELite, type: CLASSIC, version: 1.27.0}

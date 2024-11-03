@@ -40,7 +40,10 @@
 #include "mcc_generated_files/pin_manager.h"
 #include "mcc_generated_files/coretimer.h"
 #include "mcc_generated_files/adc1.h"
+#include "mcc_generated_files/mccp1_compare.h"
+#include "mcc_generated_files/mccp3_compare.h"
 #include "mcc_generated_files/usb/../usb/usb_device_cdc.h"
+#include "mcc_generated_files/usb/../usb/usb.h"
 #include "DB_Debounce.h"
 
 
@@ -50,11 +53,14 @@ char VersionTag1[] = __DATE__;     // "Jan 24 2011"
 char VersionTag2[] = __TIME__;     // "14:45:20"
 char RevBuild[] = "Rev.: 000";
 
+static uint8_t readBuffer[64];
+static uint8_t writeBuffer[64];
+
 volatile bool TimerEvent1ms;
 volatile uint32_t myTime=0;
 bool TimerEvent10ms=false, TimerEvent50ms=false, TimerEvent250ms=false, TimerEvent1s=false, TimerEvent15s=false;
 uint32_t myLastTime=0;
-uint32_t mySystemTimeOutTimer;
+//uint32_t mySystemTimeOutTimer;
 
 typedef struct {
     uint32_t data[16];
@@ -66,7 +72,7 @@ typedef struct {
 volatile stMA_t MA_AN4, MA_AN5, MA_AN6, MA_AN7, MA_AN18;
 
 
-unsigned char Blink=0xF0;
+unsigned char Blink=0x80;
 
 
 /**
@@ -111,7 +117,6 @@ void UpdateTimers(void)
             while(my1000msCnt>=1000) {
                 TimerEvent1s=true;
                 my1000msCnt -= 1000;
-                mySystemTimeOutTimer++;
                 my15sCnt += 1;
                 while(my15sCnt>=15) {
                     TimerEvent15s=true;
@@ -150,6 +155,79 @@ uint16_t MA_SetValueAndGetAvarage(volatile stMA_t * dataStorage, uint16_t newVal
     return (uint16_t)(dataStorage->lastValue>>4);
 }
 
+/*******************************************\
+| NAME: I2H      							              |
+|-------------------------------------------|
+| FUNCTION:                                 |
+|  Convert an integer (1 byte) to a HEX     |
+|  value as a string.                       |
+|                                           |
+| INPUT:                                    |
+|  B - Byte value to convert.               |
+|                                           |
+| OUTPUT:                                   |
+|  A pointer to a static string (szHex).    |
+|  holding the value from the last call to  |
+|  function.                                |
+\*******************************************/
+char *I2H(unsigned char B)
+{
+	static char szHex[3];
+	unsigned char Nibble;
+	
+	// First Hi-nibble
+	Nibble = B >> 4;
+	if(Nibble < 10)
+	  szHex[0] = '0' + Nibble;
+	else  
+	  szHex[0] = 'A' + Nibble - 10;
+
+	// Then Lo-nibble
+	Nibble = B & 0x0F;
+	if(Nibble < 10)
+	  szHex[1] = '0' + Nibble;
+	else  
+	  szHex[1] = 'A' + Nibble - 10;
+		
+	szHex[2] = '\0';
+
+	return szHex;	
+}
+
+
+/*******************************************\
+| NAME: xtoi    							|
+|-------------------------------------------|
+| FUNCTION:                                 |
+|  Convert a HEX value as a string (2 char) |
+|  to an integer value (1 byte).            |
+|                                           |
+| INPUT:                                    |
+|  S - Pointer to HEX value to convert.     |
+|                                           |
+| OUTPUT:                                   |
+|  Unsigned char holding the value.         |
+\*******************************************/
+unsigned char xtoi(char *S)
+{
+  unsigned char ret=0;
+  
+  // First Hi-nibble
+  if(S[0]>='A')
+    ret = S[0] - 'A' + 10;
+  else 
+    ret = S[0] - '0';
+  ret <<=4;
+    
+  // Then Lo-nibble
+  if(S[1]>='A')
+    ret += S[1] - 'A' + 10;
+  else 
+    ret += S[1] - '0';
+    
+  return ret;  
+}
+
 
 /*
     Main application
@@ -162,7 +240,13 @@ int main(void)
     SYSTEM_Initialize();
     
     // Start indicating all well...
-
+    LED_AUX_1_SetHigh();
+    LED_AUX_2_SetHigh();
+    LED_AUX_3_SetHigh();
+    LED_AUX_4_SetHigh();
+    
+    MCCP1_COMPARE_DualEdgeBufferedConfig( 0, 0xFF );  // LED DIM
+    MCCP3_COMPARE_DualEdgeBufferedConfig( 0, 0x0 );    // EL-FILM DIM
     
     // Prepare the ADC
     ADC1_Enable();
@@ -229,10 +313,49 @@ int main(void)
         }  //..if(TimerEvent15s)
         
         
-        // Pin-Pong response 
+        // USB HANDLER
+        //-------------
+        if( USBGetDeviceState() < CONFIGURED_STATE ) {
+            //return;
+        } else if( USBIsDeviceSuspended()== true ) {
+            //return;
+        } else {
+            Blink=0xA0;
+            if( USBUSARTIsTxTrfReady() == true) {
+                uint8_t i;
+                uint8_t numBytesRead;
 
-        MCC_USB_CDC_DemoTasks(); 
+                numBytesRead = getsUSBUSART(readBuffer, sizeof(readBuffer));
+
+                for(i=0; i<numBytesRead; i++)
+                {
+                    switch(readBuffer[i])
+                    {
+                        /* echo line feeds and returns without modification. */
+                        case 0x0A:
+                        case 0x0D:
+                            writeBuffer[i] = readBuffer[i];
+                            break;
+
+                        /* all other characters get +1 (e.g. 'a' -> 'b') */
+                        default:
+                            //writeBuffer[i] = readBuffer[i] + 1;
+                            writeBuffer[i] = readBuffer[i];
+                            break;
+                    }
+                }
+
+                if(numBytesRead > 0)
+                {
+                    putUSBUSART(writeBuffer,numBytesRead);
+                }
+            }
+
+            CDCTxService();
+            
+        }
         
+    
         // Guard the Watchdog
         WDTCONbits.WDTCLRKEY=0x5743;  // Magic sequence to reset WDT
                 

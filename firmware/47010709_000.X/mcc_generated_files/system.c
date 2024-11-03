@@ -83,20 +83,20 @@
 #include "pin_manager.h"
 #include "clock.h"
 #include "system.h"
-#include "mccp1_compare.h"
+#include "usb/usb.h"
+#include "coretimer.h"
 #include "interrupt_manager.h"
 #include "exceptions.h"
 #include "mccp3_compare.h"
 #include "adc1.h"
-#include "usb/usb.h"
 #include "tmr2.h"
-#include "coretimer.h"
+#include "mccp1_compare.h"
 
 void SYSTEM_Initialize(void)
 {
     PIN_MANAGER_Initialize();
-    INTERRUPT_Initialize();
     CLOCK_Initialize();
+    INTERRUPT_Initialize();
     CORETIMER_Initialize();
     MCCP3_COMPARE_Initialize();
     USBDeviceInit();
