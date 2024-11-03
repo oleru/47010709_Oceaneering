@@ -84,12 +84,12 @@
 #include "clock.h"
 #include "system.h"
 #include "adc1.h"
-#include "interrupt_manager.h"
-#include "exceptions.h"
-#include "mccp3_compare.h"
 #include "mccp1_compare.h"
+#include "mccp3_compare.h"
 #include "coretimer.h"
 #include "usb/usb.h"
+#include "interrupt_manager.h"
+#include "exceptions.h"
 #include "tmr2.h"
 
 void SYSTEM_Initialize(void)

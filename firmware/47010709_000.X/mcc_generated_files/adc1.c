@@ -62,14 +62,14 @@ void ADC1_Initialize (void)
 {
     // ASAM enabled; DONE disabled; FORM Integer 16-bit; SAMP disabled; SSRC Internal counter ends sampling and starts conversion; SIDL disabled; MODE12 12-bit; ON enabled; 
     AD1CON1 = 0x807C;
-    // CSCNA enabled; BUFM disabled; SMPI Generates interrupt after completion of every 8th sample/conversion operation; OFFCAL disabled; VCFG AVDD/AVSS; BUFREGEN disabled; 
-    AD1CON2 = 0x41C;
+    // CSCNA enabled; BUFM disabled; SMPI Generates interrupt after completion of every 13th sample/conversion operation; OFFCAL disabled; VCFG AVDD/AVSS; BUFREGEN disabled; 
+    AD1CON2 = 0x430;
     // SAMC 31; EXTSAM disabled; ADRC FRC; ADCS 3; 
     AD1CON3 = 0x9F03;
     // CH0SA AN0; CH0NA AVSS; 
     AD1CHS = 0x00;
-    // CSS9 disabled; CSS8 disabled; CSS7 enabled; CSS6 enabled; CSS5 enabled; CSS4 enabled; CSS3 disabled; CSS2 disabled; CSS15 disabled; CSS1 disabled; CSS14 disabled; CSS0 disabled; CSS13 disabled; CSS12 disabled; CSS11 disabled; CSS10 disabled; CSS30 enabled; CSS19 disabled; CSS18 disabled; CSS29 enabled; CSS17 disabled; CSS28 enabled; CSS16 disabled; CSS27 enabled; 
-    AD1CSS = 0x780000F0;
+    // CSS9 disabled; CSS8 disabled; CSS7 enabled; CSS6 enabled; CSS5 enabled; CSS4 enabled; CSS3 enabled; CSS2 enabled; CSS15 disabled; CSS1 disabled; CSS14 disabled; CSS0 disabled; CSS13 enabled; CSS12 enabled; CSS11 enabled; CSS10 disabled; CSS30 enabled; CSS19 disabled; CSS18 disabled; CSS29 enabled; CSS17 disabled; CSS28 enabled; CSS16 disabled; CSS27 enabled; 
+    AD1CSS = 0x780038FC;
     // ASEN disabled; WM Legacy operation; ASINT No interrupt; CM Less Than mode; BGREQ disabled; LPEN Full power; 
     AD1CON5 = 0x00;
     // CHH9 disabled; CHH8 disabled; CHH7 disabled; CHH6 disabled; CHH5 disabled; CHH4 disabled; CHH3 disabled; CHH2 disabled; CHH1 disabled; CHH0 disabled; CHH11 disabled; CHH10 disabled; CHH13 disabled; CHH12 disabled; CHH15 disabled; CHH14 disabled; CHH17 disabled; CHH16 disabled; CHH19 disabled; CHH18 disabled; 

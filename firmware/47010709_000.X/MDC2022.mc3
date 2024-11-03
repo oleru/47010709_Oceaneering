@@ -75,8 +75,8 @@
       </entry>
    </usedClasses>
    <usedLibraries class="java.util.ArrayList">
-      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.USBDEVICELite.USBDEVICELite" version="1.27.0"/>
       <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.mcu16.Mcu16PeripheralLibrary" version="1.171.2"/>
+      <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.USBDEVICELite.USBDEVICELite" version="1.27.0"/>
       <ILibraryFile class="com.microchip.mcc.core.library.BaseLibraryFile" libraryClass="com.microchip.mcc.boardsupportlibrary.BoardSuppportLibrary" version="1.12.0"/>
    </usedLibraries>
    <tokenMap class="java.util.TreeMap">
@@ -178,11 +178,11 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="ADC1" name="SCAN_ENABLE"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="ADC1" name="Scan_Count"/>
-         <value>8</value>
+         <value>13</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="ADC1" name="VBG"/>
@@ -1234,7 +1234,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="ADC1" registerAlias="ADCON2"/>
-         <value>1052</value>
+         <value>1072</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="ADC1" registerAlias="ADCON3"/>
@@ -1246,7 +1246,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="ADC1" registerAlias="ADCSS"/>
-         <value>2013266160</value>
+         <value>2013280508</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCBUF0" settingAlias="ADCBUF0"/>
@@ -1478,7 +1478,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCON2" settingAlias="SMPI"/>
-         <value>Generates interrupt after completion of every 8th sample/conversion operation</value>
+         <value>Generates interrupt after completion of every 13th sample/conversion operation</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCON2" settingAlias="VCFG"/>
@@ -1538,15 +1538,15 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCSS" settingAlias="CSS11"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCSS" settingAlias="CSS12"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCSS" settingAlias="CSS13"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCSS" settingAlias="CSS14"/>
@@ -1574,7 +1574,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCSS" settingAlias="CSS2"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCSS" settingAlias="CSS27"/>
@@ -1590,7 +1590,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCSS" settingAlias="CSS3"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCSS" settingAlias="CSS30"/>
@@ -16728,11 +16728,11 @@
       </entry>
       <entry>
          <file>mcc_generated_files\adc1.c</file>
-         <hash>9667714d14b7199a01fe2813e95fba7fff0257c0af94b87e67cbfa32d9c93bac</hash>
+         <hash>50453517aae17423332fab90308085482c37915d64765b508e32d9a4277a176e</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\adc1.h</file>
-         <hash>fe5fc1ceb2e6e3162916f91bfdb31a479d84578d547a4f6f052a3e6eb8ebdce6</hash>
+         <hash>090ced22ffcf4c19032f7620c26f66594bb27ad78283228a6572a58258bc1ce8</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\adc_module_features.h</file>
@@ -16776,7 +16776,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\mcc.h</file>
-         <hash>2296edbe89c4d62c548759c22c583ef81851c93dc976b6ea924be16a587d5a05</hash>
+         <hash>aef4cdf95cf8180f780e9e8218137d673166b46513dc28cfb4e7179ab0a2ce51</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\mccp1_compare.c</file>
@@ -16804,7 +16804,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\system.c</file>
-         <hash>12af67529327a471c95d4175a20b99fdfe675aea201cdf16ccbcf82bfab27cd4</hash>
+         <hash>25d0b207bd1512a043016c6b429e2839dde234774a3ebd3572fbd59aac1c825f</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system.h</file>

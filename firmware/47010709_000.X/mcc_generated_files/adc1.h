@@ -75,7 +75,7 @@
  Remarks:
    None
  */
-#define ADC1_SCAN_MODE_SELECTED false
+#define ADC1_SCAN_MODE_SELECTED true
 
 /** ADC1 Channel Definition
  
@@ -344,50 +344,8 @@ inline static void ADC1_SoftwareTriggerDisable(void)
 */
 inline static void ADC1_ChannelSelect( ADC1_CHANNEL channel )
 {
-    switch(channel)
-    {
-        case PRESSURE_1_AN:
-                AD1CHSbits.CH0SA= 0x2;
-                break;
-        case PRESSURE_2_AN:
-                AD1CHSbits.CH0SA= 0x3;
-                break;
-        case PRESSURE_3_AN:
-                AD1CHSbits.CH0SA= 0x4;
-                break;
-        case WINCH_3_AN:
-                AD1CHSbits.CH0SA= 0x5;
-                break;
-        case WINCH_4_AN:
-                AD1CHSbits.CH0SA= 0x6;
-                break;
-        case LIGHT_SENSE:
-                AD1CHSbits.CH0SA= 0x7;
-                break;
-        case PRESSURE_4_AN:
-                AD1CHSbits.CH0SA= 0xB;
-                break;
-        case WINCH_1_AN:
-                AD1CHSbits.CH0SA= 0xC;
-                break;
-        case WINCH_2_AN:
-                AD1CHSbits.CH0SA= 0xD;
-                break;
-        case CHANNEL_VDD_core:
-                AD1CHSbits.CH0SA= 0x1B;
-                break;
-        case CHANNEL_VBG:
-                AD1CHSbits.CH0SA= 0x1C;
-                break;
-        case CHANNEL_AVSS:
-                AD1CHSbits.CH0SA= 0x1D;
-                break;
-        case CHANNEL_AVDD:
-                AD1CHSbits.CH0SA= 0x1E;
-                break;
-        default:
-                break;
-    }
+    /*This routine does not have any implementation since all the selected channels for this 
+    module have been put for scan. */
 }
 
 /**
@@ -431,7 +389,50 @@ inline static uint16_t ADC1_ConversionResultGet( ADC1_CHANNEL channel )
 {
     uint16_t result;
 
-    result = ADC1BUF0;
+    switch(channel)
+    {
+        case PRESSURE_1_AN:
+                result = ADC1BUF0;
+                break;
+        case PRESSURE_2_AN:
+                result = ADC1BUF1;
+                break;
+        case PRESSURE_3_AN:
+                result = ADC1BUF2;
+                break;
+        case WINCH_3_AN:
+                result = ADC1BUF3;
+                break;
+        case WINCH_4_AN:
+                result = ADC1BUF4;
+                break;
+        case LIGHT_SENSE:
+                result = ADC1BUF5;
+                break;
+        case PRESSURE_4_AN:
+                result = ADC1BUF6;
+                break;
+        case WINCH_1_AN:
+                result = ADC1BUF7;
+                break;
+        case WINCH_2_AN:
+                result = ADC1BUF8;
+                break;
+        case CHANNEL_VDD_core:
+                result = ADC1BUF9;
+                break;
+        case CHANNEL_VBG:
+                result = ADC1BUF10;
+                break;
+        case CHANNEL_AVSS:
+                result = ADC1BUF11;
+                break;
+        case CHANNEL_AVDD:
+                result = ADC1BUF12;
+                break;
+        default:
+                break;
+    }
 
     return result;
 }

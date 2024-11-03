@@ -59,6 +59,7 @@ char RevBuild[] = "Rev.: 000";
 uint8_t readBuffer[DECODE_BUFFER_SIZE];
 uint8_t writeBuffer[DECODE_BUFFER_SIZE];
 char Buff[DECODE_BUFFER_SIZE];
+uint8_t myData[DECODE_BUFFER_SIZE];
 uint8_t myIndex, CS;
 
 volatile bool TimerEvent1ms;
@@ -73,8 +74,8 @@ typedef struct {
     uint8_t notFirstRound;
 }  __attribute__ ((packed)) stMA_t;
 
-volatile stMA_t MA_AN4, MA_AN5, MA_AN6, MA_AN7, MA_AN18;
-
+volatile stMA_t MA_AN2, MA_AN3, MA_AN4, MA_AN5, MA_AN6, MA_AN7, MA_AN11, MA_AN12, MA_AN13;
+volatile uint16_t AD[9];
 
 unsigned char Blink=0x80;
 
@@ -89,7 +90,15 @@ uint16_t MA_SetValueAndGetAvarage(volatile stMA_t * dataStorage, uint16_t newVal
 
 void ADC1_CallBack(void)
 {
-//    MBS_HoldRegisters[MBS_MD_FOCUS_FB] = MA_SetValueAndGetAvarage(&MA_AN4, ADC1_ConversionResultGet(MD_FOCUS_FB_AN4));
+    AD[0] = MA_SetValueAndGetAvarage(&MA_AN2, ADC1_ConversionResultGet(PRESSURE_1_AN));
+    AD[1] = MA_SetValueAndGetAvarage(&MA_AN3, ADC1_ConversionResultGet(PRESSURE_2_AN));
+    AD[2] = MA_SetValueAndGetAvarage(&MA_AN4, ADC1_ConversionResultGet(PRESSURE_3_AN));
+    AD[3] = MA_SetValueAndGetAvarage(&MA_AN11, ADC1_ConversionResultGet(PRESSURE_4_AN));
+    AD[4] = MA_SetValueAndGetAvarage(&MA_AN12, ADC1_ConversionResultGet(WINCH_1_AN));
+    AD[5] = MA_SetValueAndGetAvarage(&MA_AN13, ADC1_ConversionResultGet(WINCH_2_AN));
+    AD[6] = MA_SetValueAndGetAvarage(&MA_AN5, ADC1_ConversionResultGet(WINCH_3_AN));
+    AD[7] = MA_SetValueAndGetAvarage(&MA_AN6, ADC1_ConversionResultGet(WINCH_4_AN));
+    AD[8] = MA_SetValueAndGetAvarage(&MA_AN7, ADC1_ConversionResultGet(LIGHT_SENSE));
 }
 
 
@@ -191,7 +200,6 @@ char *I2H(unsigned char B)
 	return szHex;	
 }
 
-
 /*******************************************\
 | NAME: xtoi    							|
 |-------------------------------------------|
@@ -223,6 +231,61 @@ unsigned char xtoi(char *S)
     ret += S[1] - '0';
     
   return ret;  
+}
+
+/*******************************************\
+| NAME: Send2PC  							              |
+|-------------------------------------------|
+| FUNCTION:                                 |
+|  Dim Send2PC.                             |
+|                                           |
+| INPUT:                                    |
+|  ID - Data ID                             |
+|  Data - Data to send.                     |
+|  Len - Length of Data.                    |
+|                                           |
+| OUTPUT:                                   |
+|  None                                     |
+|                                           |
+| NOTE:                                     |
+|  Uses writeBuffer.                              |
+\*******************************************/
+void Send2PC(unsigned char ID,char *Data, unsigned char Len)
+{
+  char Checksum=0;
+	int i,x=0;
+	char *S;
+	
+	
+	// Build telegram
+	writeBuffer[x++] = ':';  // SOT
+	S = I2H(ID);
+	writeBuffer[x++] = S[0];  // Add Header ID - Hi
+	writeBuffer[x++] = S[1];  // Add Header ID - Lo
+	for(i=0;i<Len;i++) {
+  	S = I2H(Data[i]);
+  	writeBuffer[x++] = S[0];  // Add Data - Hi
+	  writeBuffer[x++] = S[1];  // Add Data - Lo
+	}
+  writeBuffer[x] = 0;
+  	
+
+	// Calculate checksum
+	for(i=0;i<strlen(writeBuffer);i++) {
+		Checksum ^= writeBuffer[i];
+  }	
+
+  // Print Checksum
+	S = I2H(Checksum);
+	writeBuffer[x++] = S[0];  // Add CRC - Hi
+	writeBuffer[x++] = S[1];  // Add CRC - Lo
+	writeBuffer[x++] = 0x0D;  // Add EOT
+	writeBuffer[x++] = 0x0A;  // Add EOT
+  writeBuffer[x] = 0;
+
+  putUSBUSART(writeBuffer,strlen(writeBuffer));
+  
+  return;
 }
 
 
@@ -292,6 +355,17 @@ int main(void)
                 OP_STATUS_SetLow();    
             }
             
+            // Send Telegram 02
+            if(Blink==0xA0) {
+                for(uint8_t i=0;i<9;i++) {
+                    myData[i*2] = (uint8_t)(AD[i]>>8);
+                    myData[(i*2)+1] = (uint8_t)(AD[i]&0x00FF);
+                }
+                myData[18] = 0;  //  Buttons
+                Send2PC(2,myData,19);
+            }
+            
+            
         }  //..if(TimerEvent250ms)
         
         
@@ -306,9 +380,9 @@ int main(void)
         // USB HANDLER
         //-------------
         if( USBGetDeviceState() < CONFIGURED_STATE ) {
-            //return;
+            ELFILM_EN_SetLow();  // El-film off
         } else if( USBIsDeviceSuspended()== true ) {
-            //return;
+            ELFILM_EN_SetLow();  // El-film off
         } else {
             Blink=0xA0;
             if( USBUSARTIsTxTrfReady() == true) {
@@ -357,9 +431,6 @@ int main(void)
                                         LED_AUX_4_SetLow();
                                     }
                                 }
-                            //} else {
-                            //    sprintf(writeBuffer,":NO! %c%c != %2.2X\r\n",Buff[strlen(Buff)-2],Buff[strlen(Buff)-1], CS);
-                            //    putUSBUSART(writeBuffer,strlen(writeBuffer));
                             }
                             myIndex=0;
                             break;
