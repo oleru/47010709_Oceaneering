@@ -801,11 +801,11 @@ inline static void COMMON_BTN_AUX_SetValue(bool value)
   @Example
     <code>
     // Set RA9 high (1)
-    IO_RA9_SetHigh();
+    BTN_AUX_4B_SetHigh();
     </code>
 
 */
-#define IO_RA9_SetHigh()          ( LATASET = (1 << 9) )
+#define BTN_AUX_4B_SetHigh()          ( LATASET = (1 << 9) )
 /**
   @Summary
     Sets the GPIO pin, RA9, low using LATA9.
@@ -825,11 +825,11 @@ inline static void COMMON_BTN_AUX_SetValue(bool value)
   @Example
     <code>
     // Set RA9 low (0)
-    IO_RA9_SetLow();
+    BTN_AUX_4B_SetLow();
     </code>
 
 */
-#define IO_RA9_SetLow()           ( LATACLR = (1 << 9) )
+#define BTN_AUX_4B_SetLow()           ( LATACLR = (1 << 9) )
 
 /**
   @Summary
@@ -850,19 +850,19 @@ inline static void COMMON_BTN_AUX_SetValue(bool value)
   @Example
     <code>
     // Set RA9 to low.
-    IO_RA9_SetValue(false);
+    BTN_AUX_4B_SetValue(false);
     </code>
 
 */
-inline static void IO_RA9_SetValue(bool value)
+inline static void BTN_AUX_4B_SetValue(bool value)
 {
   if(value)
   {
-    IO_RA9_SetHigh();
+    BTN_AUX_4B_SetHigh();
   }
   else
   {
-    IO_RA9_SetLow();
+    BTN_AUX_4B_SetLow();
   }
 }
 
@@ -885,11 +885,11 @@ inline static void IO_RA9_SetValue(bool value)
   @Example
     <code>
     // Toggle RA9
-    IO_RA9_Toggle();
+    BTN_AUX_4B_Toggle();
     </code>
 
 */
-#define IO_RA9_Toggle()           ( LATAINV = (1 << 9) )
+#define BTN_AUX_4B_Toggle()           ( LATAINV = (1 << 9) )
 /**
   @Summary
     Reads the value of the GPIO pin, RA9.
@@ -911,11 +911,11 @@ inline static void IO_RA9_SetValue(bool value)
     uint16_t portValue;
 
     // Read RA9
-    postValue = IO_RA9_GetValue();
+    postValue = BTN_AUX_4B_GetValue();
     </code>
 
 */
-#define IO_RA9_GetValue()         PORTAbits.RA9
+#define BTN_AUX_4B_GetValue()         PORTAbits.RA9
 /**
   @Summary
     Configures the GPIO pin, RA9, as an input.
@@ -935,11 +935,11 @@ inline static void IO_RA9_SetValue(bool value)
   @Example
     <code>
     // Sets the RA9 as an input
-    IO_RA9_SetDigitalInput();
+    BTN_AUX_4B_SetDigitalInput();
     </code>
 
 */
-#define IO_RA9_SetDigitalInput()   ( TRISASET = (1 << 9) )
+#define BTN_AUX_4B_SetDigitalInput()   ( TRISASET = (1 << 9) )
 /**
   @Summary
     Configures the GPIO pin, RA9, as an output.
@@ -959,11 +959,11 @@ inline static void IO_RA9_SetValue(bool value)
   @Example
     <code>
     // Sets the RA9 as an output
-    IO_RA9_SetDigitalOutput();
+    BTN_AUX_4B_SetDigitalOutput();
     </code>
 
 */
-#define IO_RA9_SetDigitalOutput()   ( TRISACLR = (1 << 9) )
+#define BTN_AUX_4B_SetDigitalOutput()   ( TRISACLR = (1 << 9) )
 /**
   @Summary
     Sets the GPIO pin, RB0, high using LATB0.

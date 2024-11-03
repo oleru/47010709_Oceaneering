@@ -5810,7 +5810,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="Custom Name RA9"/>
-         <value>IO_RA9</value>
+         <value>BTN_AUX_4B</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="Custom Name RB0"/>
@@ -5993,11 +5993,11 @@
          <value/>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM1R%aux0"/>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM1R%aux1"/>
          <value>%DESELECT%</value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM3R%aux1"/>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM3R%aux0"/>
          <value>%DESELECT%</value>
       </entry>
       <entry>
@@ -6378,7 +6378,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="customNameUserSet RA9"/>
-         <value>disabled</value>
+         <value>enabled</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="customNameUserSet RB0"/>
@@ -16776,7 +16776,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\mcc.h</file>
-         <hash>aef4cdf95cf8180f780e9e8218137d673166b46513dc28cfb4e7179ab0a2ce51</hash>
+         <hash>1e3513515955821cf2fd4a06159c70aca65d39787592706471398296c14e371c</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\mccp1_compare.c</file>
@@ -16800,11 +16800,11 @@
       </entry>
       <entry>
          <file>mcc_generated_files\pin_manager.h</file>
-         <hash>e3533a2a9f419087e11c8e62081e019996413fd9df17ea8e5c6639c566dd17b0</hash>
+         <hash>ad5497d492449bc944d7a379be347224b64f42bb325cdd12b93bbad6fd554c08</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system.c</file>
-         <hash>25d0b207bd1512a043016c6b429e2839dde234774a3ebd3572fbd59aac1c825f</hash>
+         <hash>78811e014ecc56235fc4799156e05c6b03340918873067597d1b003d606d6666</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system.h</file>

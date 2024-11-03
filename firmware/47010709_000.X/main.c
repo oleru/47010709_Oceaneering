@@ -79,6 +79,10 @@ volatile uint16_t AD[9];
 
 unsigned char Blink=0x80;
 
+unsigned int uiDimTableLED[] = { 250, 900, 1023 }; 
+//unsigned int uiDimTable2[] = { 135, 160, 0 }; 
+unsigned int uiDimTableElfilm[] = { 256, 256, 256 }; 
+
 
 /**
     Prototypes
@@ -288,6 +292,51 @@ void Send2PC(unsigned char ID,char *Data, unsigned char Len)
   return;
 }
 
+void SetPalett(unsigned int Value)
+{
+  static uint8_t Modus;
+  unsigned int DimValue;
+  
+  switch(Modus) {
+    case 0:
+      ELFILM_EN_SetHigh();  // El-film on    
+      
+      // In the zone?
+      //if(Value<0x0300)
+      if(Value<0x0800)
+        Modus++; 
+    break;
+    case 1:
+      ELFILM_EN_SetHigh();  // El-film on    
+
+      // In the zone?
+      //if(Value>0x0320)
+      if(Value>0x0820)
+        Modus--; 
+      //if(Value<0x0200)
+      if(Value<0x0700)
+        Modus++; 
+
+    break;
+    case 2:
+    default:
+      Modus=2;
+      ELFILM_EN_SetLow();  // El-film off    
+
+      // In the zone?
+      //if(Value>0x0220)
+      if(Value>0x0720)
+        Modus--; 
+    break;    
+  }  
+    
+  
+  // Set new PWM
+  MCCP1_COMPARE_DualEdgeBufferedConfig( 0, uiDimTableLED[Modus] );  // LED DIM
+  MCCP3_COMPARE_DualEdgeBufferedConfig( 0, uiDimTableElfilm[Modus] );    // EL-FILM DIM
+  
+}  
+
 
 /*
     Main application
@@ -295,6 +344,8 @@ void Send2PC(unsigned char ID,char *Data, unsigned char Len)
 int main(void)
 {
     uint8_t BlinkCnt;
+    uint8_t Switches=0;
+    
         
     // initialize the device
     SYSTEM_Initialize();
@@ -304,9 +355,12 @@ int main(void)
     LED_AUX_2_SetLow();
     LED_AUX_3_SetLow();
     LED_AUX_4_SetLow();
+    ELFILM_EN_SetLow();  // El-film off    
+    MCCP1_COMPARE_DualEdgeBufferedConfig( 0, uiDimTableLED[0] );  // LED DIM
+    MCCP3_COMPARE_DualEdgeBufferedConfig( 0, uiDimTableElfilm[0] );    // EL-FILM DIM
+    COMMON_BTN_AUX_SetLow();
+    COMMON_BTN_EMERGENCY_SetLow();
     
-    MCCP1_COMPARE_DualEdgeBufferedConfig( 0, 0x3FF );  // LED DIM
-    MCCP3_COMPARE_DualEdgeBufferedConfig( 0, 0x0 );    // EL-FILM DIM
     
     // Prepare the ADC
     ADC1_Enable();
@@ -331,6 +385,33 @@ int main(void)
         // 10ms Timer Event
         if(TimerEvent10ms) {
             TimerEvent10ms = false;
+
+            // BTN_AUX_4 has no internal WPU, 
+            // fake it by pulling the signal high as output, 
+            // reverse it to input to see if it drops low fast or stay "floating"...
+            BTN_AUX_4_SetDigitalOutput();
+            BTN_AUX_4_SetHigh();
+            BTN_AUX_4_SetDigitalInput();
+            
+            // Scan Switches
+            if(BTN_AUX_1_GetValue()==0) {
+                Switches |= 0x01;
+            }
+            if(BTN_AUX_2_GetValue()==0) {
+                Switches |= 0x02;
+            }
+            if(BTN_AUX_3_GetValue()==0) {
+                Switches |= 0x04;
+            }
+            if(BTN_AUX_4_GetValue()==0) {
+                Switches |= 0x08;
+            }
+            if(BTN_EMERGENCY_STOP_GetValue()==0) {
+                Switches |= 0x10;
+            }
+            if(BTN_EMERGENCY_RELEASE_GetValue()==0) {
+                Switches |= 0x20;
+            }
             
         }  //..if(my10msTimer)
         
@@ -361,7 +442,8 @@ int main(void)
                     myData[i*2] = (uint8_t)(AD[i]>>8);
                     myData[(i*2)+1] = (uint8_t)(AD[i]&0x00FF);
                 }
-                myData[18] = 0;  //  Buttons
+                myData[18] = Switches;
+                Switches = 0;
                 Send2PC(2,myData,19);
             }
             
@@ -385,6 +467,9 @@ int main(void)
             ELFILM_EN_SetLow();  // El-film off
         } else {
             Blink=0xA0;
+
+            SetPalett(AD[8]);
+
             if( USBUSARTIsTxTrfReady() == true) {
                 uint8_t i;
                 uint8_t numBytesRead;
