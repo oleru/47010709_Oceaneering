@@ -30,12 +30,15 @@
 /**
   Section: Defines
 */
+#define DECODE_BUFFER_SIZE 64
 
 
 /**
   Section: Included Files
 */
 #include <stdint.h>
+#include <stdio.h>
+#include <string.h>
 #include "mcc_generated_files/system.h"
 #include "mcc_generated_files/pin_manager.h"
 #include "mcc_generated_files/coretimer.h"
@@ -53,14 +56,15 @@ char VersionTag1[] = __DATE__;     // "Jan 24 2011"
 char VersionTag2[] = __TIME__;     // "14:45:20"
 char RevBuild[] = "Rev.: 000";
 
-static uint8_t readBuffer[64];
-static uint8_t writeBuffer[64];
+uint8_t readBuffer[DECODE_BUFFER_SIZE];
+uint8_t writeBuffer[DECODE_BUFFER_SIZE];
+char Buff[DECODE_BUFFER_SIZE];
+uint8_t myIndex, CS;
 
 volatile bool TimerEvent1ms;
 volatile uint32_t myTime=0;
-bool TimerEvent10ms=false, TimerEvent50ms=false, TimerEvent250ms=false, TimerEvent1s=false, TimerEvent15s=false;
+bool TimerEvent10ms=false, TimerEvent50ms=false, TimerEvent250ms=false, TimerEvent1s=false;
 uint32_t myLastTime=0;
-//uint32_t mySystemTimeOutTimer;
 
 typedef struct {
     uint32_t data[16];
@@ -106,22 +110,15 @@ void UpdateTimers(void)
         while(my50msCnt>=50) {
             TimerEvent50ms = true;
             my50msCnt -= 50;
-            
             my250msCnt += 50;
             while(my250msCnt>=250) {
                 TimerEvent250ms=true;
                 my250msCnt -= 250;
-            }
-            
+            }            
             my1000msCnt += 50;
             while(my1000msCnt>=1000) {
                 TimerEvent1s=true;
                 my1000msCnt -= 1000;
-                my15sCnt += 1;
-                while(my15sCnt>=15) {
-                    TimerEvent15s=true;
-                    my15sCnt -= 15;
-                }  //..while(my15sCnt>=15)
             }  //..while(my1000msCnt>=1000)
         }  //..while(my50msCnt>=50)
     }  //..while(my10msCnt>=10)
@@ -240,12 +237,12 @@ int main(void)
     SYSTEM_Initialize();
     
     // Start indicating all well...
-    LED_AUX_1_SetHigh();
-    LED_AUX_2_SetHigh();
-    LED_AUX_3_SetHigh();
-    LED_AUX_4_SetHigh();
+    LED_AUX_1_SetLow();
+    LED_AUX_2_SetLow();
+    LED_AUX_3_SetLow();
+    LED_AUX_4_SetLow();
     
-    MCCP1_COMPARE_DualEdgeBufferedConfig( 0, 0xFF );  // LED DIM
+    MCCP1_COMPARE_DualEdgeBufferedConfig( 0, 0x3FF );  // LED DIM
     MCCP3_COMPARE_DualEdgeBufferedConfig( 0, 0x0 );    // EL-FILM DIM
     
     // Prepare the ADC
@@ -306,13 +303,6 @@ int main(void)
         }  //..if(TimerEvent1s)
 
         
-        // 15s Timer Event
-        if(TimerEvent15s) {
-            TimerEvent15s = false;
-                        
-        }  //..if(TimerEvent15s)
-        
-        
         // USB HANDLER
         //-------------
         if( USBGetDeviceState() < CONFIGURED_STATE ) {
@@ -331,24 +321,59 @@ int main(void)
                 {
                     switch(readBuffer[i])
                     {
-                        /* echo line feeds and returns without modification. */
-                        case 0x0A:
-                        case 0x0D:
-                            writeBuffer[i] = readBuffer[i];
+                        case ':':
+                            myIndex=0;
+                            Buff[myIndex++] = ':';
                             break;
-
-                        /* all other characters get +1 (e.g. 'a' -> 'b') */
+                        case 0x0A:
+                            Buff[myIndex] = '\0';
+                            CS = Buff[0];
+                            for(myIndex=1;myIndex<strlen(Buff)-2;myIndex++) {
+                                CS ^= Buff[myIndex];
+                            }
+                            // Checksum OK?
+                            if(CS == xtoi(&(Buff[strlen(Buff)-2]))) {
+                                // LED telegram :030nxx
+                                if((Buff[1]=='0')&&(Buff[2]=='3')) {
+                                    uint8_t value = xtoi(&(Buff[3]));
+                                    if(value&0x01) {
+                                        LED_AUX_1_SetHigh();
+                                    } else {
+                                        LED_AUX_1_SetLow();
+                                    }
+                                    if(value&0x02) {
+                                        LED_AUX_2_SetHigh();
+                                    } else {
+                                        LED_AUX_2_SetLow();
+                                    }
+                                    if(value&0x04) {
+                                        LED_AUX_3_SetHigh();
+                                    } else {
+                                        LED_AUX_3_SetLow();
+                                    }
+                                    if(value&0x08) {
+                                        LED_AUX_4_SetHigh();
+                                    } else {
+                                        LED_AUX_4_SetLow();
+                                    }
+                                }
+                            //} else {
+                            //    sprintf(writeBuffer,":NO! %c%c != %2.2X\r\n",Buff[strlen(Buff)-2],Buff[strlen(Buff)-1], CS);
+                            //    putUSBUSART(writeBuffer,strlen(writeBuffer));
+                            }
+                            myIndex=0;
+                            break;
+                        case 0x0D:
+                            break;
                         default:
-                            //writeBuffer[i] = readBuffer[i] + 1;
-                            writeBuffer[i] = readBuffer[i];
+                            if(myIndex<DECODE_BUFFER_SIZE) {
+                                Buff[myIndex++] = readBuffer[i];
+                            } else {
+                                myIndex=0;
+                            }
                             break;
                     }
-                }
-
-                if(numBytesRead > 0)
-                {
-                    putUSBUSART(writeBuffer,numBytesRead);
-                }
+                }  
             }
 
             CDCTxService();

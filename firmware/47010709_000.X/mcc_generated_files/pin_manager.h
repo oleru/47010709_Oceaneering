@@ -602,188 +602,6 @@ inline static void WINCH_4_AN_SetValue(bool value)
 #define WINCH_4_AN_SetDigitalOutput()   ( TRISACLR = (1 << 3) )
 /**
   @Summary
-    Sets the GPIO pin, RA4, high using LATA4.
-
-  @Description
-    Sets the GPIO pin, RA4, high using LATA4.
-
-  @Preconditions
-    The RA4 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Set RA4 high (1)
-    JOYSTICK_DOWN_SetHigh();
-    </code>
-
-*/
-#define JOYSTICK_DOWN_SetHigh()          ( LATASET = (1 << 4) )
-/**
-  @Summary
-    Sets the GPIO pin, RA4, low using LATA4.
-
-  @Description
-    Sets the GPIO pin, RA4, low using LATA4.
-
-  @Preconditions
-    The RA4 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Set RA4 low (0)
-    JOYSTICK_DOWN_SetLow();
-    </code>
-
-*/
-#define JOYSTICK_DOWN_SetLow()           ( LATACLR = (1 << 4) )
-
-/**
-  @Summary
-    Sets a value to the GPIO pin.
-
-  @Description
-    Sets or Resets the GPIO pin, RA4, low or high using LATA4.
-
-  @Preconditions
-    The RA4 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    bool value; : value to be set to the GPIO pin.
-
-  @Example
-    <code>
-    // Set RA4 to low.
-    JOYSTICK_DOWN_SetValue(false);
-    </code>
-
-*/
-inline static void JOYSTICK_DOWN_SetValue(bool value)
-{
-  if(value)
-  {
-    JOYSTICK_DOWN_SetHigh();
-  }
-  else
-  {
-    JOYSTICK_DOWN_SetLow();
-  }
-}
-
-/**
-  @Summary
-    Toggles the GPIO pin, RA4, using LATA4.
-
-  @Description
-    Toggles the GPIO pin, RA4, using LATA4.
-
-  @Preconditions
-    The RA4 must be set to an output.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Toggle RA4
-    JOYSTICK_DOWN_Toggle();
-    </code>
-
-*/
-#define JOYSTICK_DOWN_Toggle()           ( LATAINV = (1 << 4) )
-/**
-  @Summary
-    Reads the value of the GPIO pin, RA4.
-
-  @Description
-    Reads the value of the GPIO pin, RA4.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    uint16_t portValue;
-
-    // Read RA4
-    postValue = JOYSTICK_DOWN_GetValue();
-    </code>
-
-*/
-#define JOYSTICK_DOWN_GetValue()         PORTAbits.RA4
-/**
-  @Summary
-    Configures the GPIO pin, RA4, as an input.
-
-  @Description
-    Configures the GPIO pin, RA4, as an input.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Sets the RA4 as an input
-    JOYSTICK_DOWN_SetDigitalInput();
-    </code>
-
-*/
-#define JOYSTICK_DOWN_SetDigitalInput()   ( TRISASET = (1 << 4) )
-/**
-  @Summary
-    Configures the GPIO pin, RA4, as an output.
-
-  @Description
-    Configures the GPIO pin, RA4, as an output.
-
-  @Preconditions
-    None.
-
-  @Returns
-    None.
-
-  @Param
-    None.
-
-  @Example
-    <code>
-    // Sets the RA4 as an output
-    JOYSTICK_DOWN_SetDigitalOutput();
-    </code>
-
-*/
-#define JOYSTICK_DOWN_SetDigitalOutput()   ( TRISACLR = (1 << 4) )
-/**
-  @Summary
     Sets the GPIO pin, RA8, high using LATA8.
 
   @Description
@@ -964,6 +782,188 @@ inline static void COMMON_BTN_AUX_SetValue(bool value)
 
 */
 #define COMMON_BTN_AUX_SetDigitalOutput()   ( TRISACLR = (1 << 8) )
+/**
+  @Summary
+    Sets the GPIO pin, RA9, high using LATA9.
+
+  @Description
+    Sets the GPIO pin, RA9, high using LATA9.
+
+  @Preconditions
+    The RA9 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA9 high (1)
+    IO_RA9_SetHigh();
+    </code>
+
+*/
+#define IO_RA9_SetHigh()          ( LATASET = (1 << 9) )
+/**
+  @Summary
+    Sets the GPIO pin, RA9, low using LATA9.
+
+  @Description
+    Sets the GPIO pin, RA9, low using LATA9.
+
+  @Preconditions
+    The RA9 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Set RA9 low (0)
+    IO_RA9_SetLow();
+    </code>
+
+*/
+#define IO_RA9_SetLow()           ( LATACLR = (1 << 9) )
+
+/**
+  @Summary
+    Sets a value to the GPIO pin.
+
+  @Description
+    Sets or Resets the GPIO pin, RA9, low or high using LATA9.
+
+  @Preconditions
+    The RA9 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    bool value; : value to be set to the GPIO pin.
+
+  @Example
+    <code>
+    // Set RA9 to low.
+    IO_RA9_SetValue(false);
+    </code>
+
+*/
+inline static void IO_RA9_SetValue(bool value)
+{
+  if(value)
+  {
+    IO_RA9_SetHigh();
+  }
+  else
+  {
+    IO_RA9_SetLow();
+  }
+}
+
+/**
+  @Summary
+    Toggles the GPIO pin, RA9, using LATA9.
+
+  @Description
+    Toggles the GPIO pin, RA9, using LATA9.
+
+  @Preconditions
+    The RA9 must be set to an output.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Toggle RA9
+    IO_RA9_Toggle();
+    </code>
+
+*/
+#define IO_RA9_Toggle()           ( LATAINV = (1 << 9) )
+/**
+  @Summary
+    Reads the value of the GPIO pin, RA9.
+
+  @Description
+    Reads the value of the GPIO pin, RA9.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    uint16_t portValue;
+
+    // Read RA9
+    postValue = IO_RA9_GetValue();
+    </code>
+
+*/
+#define IO_RA9_GetValue()         PORTAbits.RA9
+/**
+  @Summary
+    Configures the GPIO pin, RA9, as an input.
+
+  @Description
+    Configures the GPIO pin, RA9, as an input.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA9 as an input
+    IO_RA9_SetDigitalInput();
+    </code>
+
+*/
+#define IO_RA9_SetDigitalInput()   ( TRISASET = (1 << 9) )
+/**
+  @Summary
+    Configures the GPIO pin, RA9, as an output.
+
+  @Description
+    Configures the GPIO pin, RA9, as an output.
+
+  @Preconditions
+    None.
+
+  @Returns
+    None.
+
+  @Param
+    None.
+
+  @Example
+    <code>
+    // Sets the RA9 as an output
+    IO_RA9_SetDigitalOutput();
+    </code>
+
+*/
+#define IO_RA9_SetDigitalOutput()   ( TRISACLR = (1 << 9) )
 /**
   @Summary
     Sets the GPIO pin, RB0, high using LATB0.

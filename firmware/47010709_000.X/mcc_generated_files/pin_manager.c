@@ -79,12 +79,12 @@ void PIN_MANAGER_Initialize (void)
      ***************************************************************************/
     CNPDA = 0x0000;
     CNPDB = 0x0000;
-    CNPDC = 0x000F;
+    CNPDC = 0x000C;
     CNPDD = 0x0000;
-    CNPUA = 0x0020;
-    CNPUB = 0x0000;
+    CNPUA = 0x0220;
+    CNPUB = 0x0200;
     CNPUC = 0x0180;
-    CNPUD = 0x0000;
+    CNPUD = 0x000F;
 
     /****************************************************************************
      * Setting the Open Drain SFR(s)
