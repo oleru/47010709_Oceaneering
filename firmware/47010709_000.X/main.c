@@ -31,6 +31,12 @@
   Section: Defines
 */
 #define DECODE_BUFFER_SIZE 64
+#define BTN_AUX_1 0x01
+#define BTN_AUX_2 0x02
+#define BTN_AUX_3 0x04
+#define BTN_AUX_4 0x08
+#define BTN_EMERGENCY_STOP 0x10
+#define BTN_EMERGENCY_RELEASE 0x20
 
 
 /**
@@ -386,31 +392,24 @@ int main(void)
         if(TimerEvent10ms) {
             TimerEvent10ms = false;
 
-            // BTN_AUX_4 has no internal WPU, 
-            // fake it by pulling the signal high as output, 
-            // reverse it to input to see if it drops low fast or stay "floating"...
-            BTN_AUX_4_SetDigitalOutput();
-            BTN_AUX_4_SetHigh();
-            BTN_AUX_4_SetDigitalInput();
-            
             // Scan Switches
             if(BTN_AUX_1_GetValue()==0) {
-                Switches |= 0x01;
+                Switches |= BTN_AUX_1;
             }
             if(BTN_AUX_2_GetValue()==0) {
-                Switches |= 0x02;
+                Switches |= BTN_AUX_2;
             }
             if(BTN_AUX_3_GetValue()==0) {
-                Switches |= 0x04;
+                Switches |= BTN_AUX_3;
             }
             if(BTN_AUX_4_GetValue()==0) {
-                Switches |= 0x08;
+                Switches |= BTN_AUX_4;
             }
             if(BTN_EMERGENCY_STOP_GetValue()==0) {
-                Switches |= 0x10;
+                Switches |= BTN_EMERGENCY_STOP;
             }
             if(BTN_EMERGENCY_RELEASE_GetValue()==0) {
-                Switches |= 0x20;
+                Switches |= BTN_EMERGENCY_RELEASE;
             }
             
         }  //..if(my10msTimer)
@@ -443,8 +442,15 @@ int main(void)
                     myData[(i*2)+1] = (uint8_t)(AD[i]&0x00FF);
                 }
                 myData[18] = Switches;
-                Switches = 0;
-                Send2PC(2,myData,19);
+                
+                // EMERGENCY_STOP?
+                if(((Switches&BTN_EMERGENCY_STOP) != 0) && ((Switches&BTN_EMERGENCY_RELEASE)==0)) {
+                    Switches = BTN_EMERGENCY_STOP;  // Keep state until released                 
+                } else {
+                    Send2PC(2,myData,19);  // Send if not EMERGENCY STOP 
+                    Switches = 0;
+                }
+                
             }
             
             
