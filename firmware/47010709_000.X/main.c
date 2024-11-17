@@ -309,7 +309,7 @@ void SetPalett(unsigned int Value)
       
       // In the zone?
       //if(Value<0x0300)
-      if(Value<0x0800)
+      if(Value<0x0E15)
         Modus++; 
     break;
     case 1:
@@ -317,10 +317,10 @@ void SetPalett(unsigned int Value)
 
       // In the zone?
       //if(Value>0x0320)
-      if(Value>0x0820)
+      if(Value>0x0E18)
         Modus--; 
       //if(Value<0x0200)
-      if(Value<0x0700)
+      if(Value<0x0E14)
         Modus++; 
 
     break;
@@ -331,7 +331,7 @@ void SetPalett(unsigned int Value)
 
       // In the zone?
       //if(Value>0x0220)
-      if(Value>0x0720)
+      if(Value>0x0E16)
         Modus--; 
     break;    
   }  
@@ -351,6 +351,7 @@ int main(void)
 {
     uint8_t BlinkCnt;
     uint8_t Switches=0;
+    uint8_t myLEDOut=0;
     
         
     // initialize the device
@@ -452,6 +453,40 @@ int main(void)
                 }
                 
             }
+
+            // Update Leds
+            if((Switches&BTN_EMERGENCY_STOP) == 0) { 
+                if(myLEDOut&0x01) {
+                    LED_AUX_1_SetHigh();
+                } else {
+                    LED_AUX_1_SetLow();
+                }
+                if(myLEDOut&0x02) {
+                    LED_AUX_2_SetHigh();
+                } else {
+                    LED_AUX_2_SetLow();
+                }
+                if(myLEDOut&0x04) {
+                    LED_AUX_3_SetHigh();
+                } else {
+                    LED_AUX_3_SetLow();
+                }
+                if(myLEDOut&0x08) {
+                    LED_AUX_4_SetHigh();
+                } else {
+                    LED_AUX_4_SetLow();
+                }
+            } else if(BlinkCnt) {
+                LED_AUX_1_SetLow();
+                LED_AUX_2_SetLow();
+                LED_AUX_3_SetLow();
+                LED_AUX_4_SetLow();                
+            } else {
+                LED_AUX_1_SetHigh();
+                LED_AUX_2_SetHigh();
+                LED_AUX_3_SetHigh();
+                LED_AUX_4_SetHigh();
+            }
             
             
         }  //..if(TimerEvent250ms)
@@ -500,27 +535,7 @@ int main(void)
                             if(CS == xtoi(&(Buff[strlen(Buff)-2]))) {
                                 // LED telegram :030nxx
                                 if((Buff[1]=='0')&&(Buff[2]=='3')) {
-                                    uint8_t value = xtoi(&(Buff[3]));
-                                    if(value&0x01) {
-                                        LED_AUX_1_SetHigh();
-                                    } else {
-                                        LED_AUX_1_SetLow();
-                                    }
-                                    if(value&0x02) {
-                                        LED_AUX_2_SetHigh();
-                                    } else {
-                                        LED_AUX_2_SetLow();
-                                    }
-                                    if(value&0x04) {
-                                        LED_AUX_3_SetHigh();
-                                    } else {
-                                        LED_AUX_3_SetLow();
-                                    }
-                                    if(value&0x08) {
-                                        LED_AUX_4_SetHigh();
-                                    } else {
-                                        LED_AUX_4_SetLow();
-                                    }
+                                    myLEDOut = xtoi(&(Buff[3]));
                                 }
                             }
                             myIndex=0;
