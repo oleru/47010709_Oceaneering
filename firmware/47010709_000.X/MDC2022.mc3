@@ -5993,11 +5993,11 @@
          <value/>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM1R%aux1"/>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM1R%aux0"/>
          <value>%DESELECT%</value>
       </entry>
       <entry>
-         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM3R%aux0"/>
+         <key class="com.microchip.mcc.core.tokenManager.CustomKey" moduleName="Pin Module" name="ICM3R%aux1"/>
          <value>%DESELECT%</value>
       </entry>
       <entry>
@@ -16776,7 +16776,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\mcc.h</file>
-         <hash>1e3513515955821cf2fd4a06159c70aca65d39787592706471398296c14e371c</hash>
+         <hash>3e290618ebcfb9b6cda92414845168a910e7ef18200f15de8a825a8419929be1</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\mccp1_compare.c</file>
@@ -16804,7 +16804,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\system.c</file>
-         <hash>78811e014ecc56235fc4799156e05c6b03340918873067597d1b003d606d6666</hash>
+         <hash>203c06987a08f668a077a45e255138a072993b6a8424c352efde10d40783b364</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system.h</file>

@@ -22,7 +22,7 @@
         MPLAB 	          :  MPLAB X v6.20
 
   @Revisions
-    "Rev.: 000" - 2024.11.02 - OPR, Torka AS as
+    "Rev.: 000" - 2025.01.27 - OPR, Torka AS as
         - Minumum funksjonal versjon release.
  
 */
@@ -317,10 +317,10 @@ void SetPalett(unsigned int Value)
 
       // In the zone?
       //if(Value>0x0320)
-      if(Value>0x0E18)
+      if(Value>0x0E20)
         Modus--; 
       //if(Value<0x0200)
-      if(Value<0x0E14)
+      if(Value<0x0E12)
         Modus++; 
 
     break;
@@ -331,7 +331,7 @@ void SetPalett(unsigned int Value)
 
       // In the zone?
       //if(Value>0x0220)
-      if(Value>0x0E16)
+      if(Value>0x0E18)
         Modus--; 
     break;    
   }  
@@ -352,7 +352,7 @@ int main(void)
     uint8_t BlinkCnt;
     uint8_t Switches=0;
     uint8_t myLEDOut=0;
-    
+    bool blankSent=false;
         
     // initialize the device
     SYSTEM_Initialize();
@@ -446,10 +446,23 @@ int main(void)
                 
                 // EMERGENCY_STOP?
                 if(((Switches&BTN_EMERGENCY_STOP) != 0) && ((Switches&BTN_EMERGENCY_RELEASE)==0)) {
-                    Switches = BTN_EMERGENCY_STOP;  // Keep state until released                 
+                    Switches = BTN_EMERGENCY_STOP;  // Keep state until released
+                    if(!blankSent) {
+                        
+                        // NULL-out AN-data...
+                        for(uint8_t i=0;i<4;i++) {
+                            myData[i*2] = 0x00;
+                            myData[(i*2)+1] = 0x00;
+                            myData[8+(i*2)] = 0x00;
+                            myData[8+(i*2)+1] = 0x08;
+                        }
+                        Send2PC(2,myData,19);  // Send if EMERGENCY STOP once to cancel input
+                        blankSent = true;
+                    }
                 } else {
                     Send2PC(2,myData,19);  // Send if not EMERGENCY STOP 
                     Switches = 0;
+                    blankSent = false;
                 }
                 
             }
