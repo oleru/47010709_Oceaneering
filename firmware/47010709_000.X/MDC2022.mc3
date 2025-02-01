@@ -1234,7 +1234,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="ADC1" registerAlias="ADCON2"/>
-         <value>1072</value>
+         <value>1084</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.RegisterKey" moduleName="ADC1" registerAlias="ADCON3"/>
@@ -1478,7 +1478,7 @@
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCON2" settingAlias="SMPI"/>
-         <value>Generates interrupt after completion of every 13th sample/conversion operation</value>
+         <value>Generates interrupt after completion of every 16th sample/conversion operation</value>
       </entry>
       <entry>
          <key class="com.microchip.mcc.core.tokenManager.SettingKey" moduleName="ADC1" registerAlias="ADCON2" settingAlias="VCFG"/>
@@ -16728,7 +16728,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\adc1.c</file>
-         <hash>50453517aae17423332fab90308085482c37915d64765b508e32d9a4277a176e</hash>
+         <hash>6c813e40a3ed5f780bb5700c5c987bbed1c3a5e0bd99838805ba9463132a75a2</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\adc1.h</file>
@@ -16776,7 +16776,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\mcc.h</file>
-         <hash>3e290618ebcfb9b6cda92414845168a910e7ef18200f15de8a825a8419929be1</hash>
+         <hash>c30494d3b079e000fce364be23e76ab7611f959d285445da2396bcb6acd200f2</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\mccp1_compare.c</file>
@@ -16804,7 +16804,7 @@
       </entry>
       <entry>
          <file>mcc_generated_files\system.c</file>
-         <hash>203c06987a08f668a077a45e255138a072993b6a8424c352efde10d40783b364</hash>
+         <hash>d484394f7e9c2eeea2f618010dc34d335e797c30234f3e4f379d7b457e5786f0</hash>
       </entry>
       <entry>
          <file>mcc_generated_files\system.h</file>

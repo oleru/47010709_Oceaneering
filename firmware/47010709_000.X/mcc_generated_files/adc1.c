@@ -62,8 +62,8 @@ void ADC1_Initialize (void)
 {
     // ASAM enabled; DONE disabled; FORM Integer 16-bit; SAMP disabled; SSRC Internal counter ends sampling and starts conversion; SIDL disabled; MODE12 12-bit; ON enabled; 
     AD1CON1 = 0x807C;
-    // CSCNA enabled; BUFM disabled; SMPI Generates interrupt after completion of every 13th sample/conversion operation; OFFCAL disabled; VCFG AVDD/AVSS; BUFREGEN disabled; 
-    AD1CON2 = 0x430;
+    // CSCNA enabled; BUFM disabled; SMPI Generates interrupt after completion of every 16th sample/conversion operation; OFFCAL disabled; VCFG AVDD/AVSS; BUFREGEN disabled; 
+    AD1CON2 = 0x43C;
     // SAMC 31; EXTSAM disabled; ADRC FRC; ADCS 3; 
     AD1CON3 = 0x9F03;
     // CH0SA AN0; CH0NA AVSS; 
