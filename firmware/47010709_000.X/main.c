@@ -372,7 +372,7 @@ int main(void)
     uint8_t BlinkCnt;
     uint8_t Switches=0;
     uint8_t myLEDOut=0;
-    bool blankSent=false;
+//    bool blankSent=false;
         
     // initialize the device
     SYSTEM_Initialize();
@@ -472,7 +472,7 @@ int main(void)
                 
                 // EMERGENCY_STOP?
                 if(((Switches&BTN_EMERGENCY_STOP) != 0) && ((Switches&BTN_EMERGENCY_RELEASE)==0)) {
-                    Switches = BTN_EMERGENCY_STOP;  // Keep state until released
+/*
                     if(!blankSent) {
                         
                         // NULL-out AN-data...
@@ -485,10 +485,14 @@ int main(void)
                         Send2PC(2,myData,19);  // Send if EMERGENCY STOP once to cancel input
                         blankSent = true;
                     }
+*/
+                    Send2PC(2,myData,19); 
+                    Switches |= BTN_EMERGENCY_STOP;  // Keep state until released
+
                 } else {
-                    Send2PC(2,myData,19);  // Send if not EMERGENCY STOP 
+                    Send2PC(2,myData,19); 
                     Switches = 0;
-                    blankSent = false;
+//                    blankSent = false;
                 }
                 
             }
